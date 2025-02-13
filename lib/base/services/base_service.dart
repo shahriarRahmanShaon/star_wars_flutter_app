@@ -10,6 +10,8 @@ class BaseService {
   factory BaseService() => _instance;
 
   Future<ServiceResponseModel> getRequest(String endpoint, {int timeOut = 30}) async {
+    print("calling service for----");
+    print("$baseUrl$endpoint");
     try {
       final response = await http
           .get(Uri.parse("$baseUrl$endpoint"))

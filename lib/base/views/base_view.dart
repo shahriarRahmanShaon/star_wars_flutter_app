@@ -13,26 +13,39 @@ class BaseView<T extends BaseViewModel> extends StatefulWidget {
 }
 
 class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
+  late T viewModel;
+
   @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<T>(
-      create: (context) => widget.vmBuilder(context),
-      child: Consumer<T>(
-        builder: (context, viewModel, child) => _buildScreenContent(context, viewModel),
-      ),
-    );
+  void initState() {
+    super.initState();
+    viewModel = widget.vmBuilder(context);
   }
 
-  Widget _buildScreenContent(BuildContext context, T viewModel) {
-    if (!viewModel.isInitialized) {
-      return const Center(child: CircularProgressIndicator());
-    }
-    return Stack(
-      children: [
-        widget.builder(context, viewModel),
-        if (viewModel.isLoading)
-          const Center(child: CircularProgressIndicator()),
-      ],
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<T>.value(
+      value: viewModel,
+      child: Consumer<T>(
+        builder: (context, viewModel, child) {
+          if (!viewModel.isInitialized) {
+            return const Scaffold(
+              backgroundColor: Colors.white70,
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
+
+          return Scaffold(
+            backgroundColor: Colors.white70,
+            body: Stack(
+              children: [
+                widget.builder(context, viewModel),
+                if (viewModel.isLoading)
+                  const Center(child: CircularProgressIndicator()),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
