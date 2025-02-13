@@ -17,6 +17,8 @@
 - **App Theme Support**: Toggle between **light and dark modes**.
 - **Animated UI Elements**: Smooth transitions and animations for a better user experience.
 - **Side Drawer Navigation**: Access important sections like **Home, About, and Settings**.
+- **Shared Preference for theme persisting**: Theme persistance even after you close the app through shared preference.
+
 
 ---
 ## 📸 Screenshots
@@ -46,6 +48,7 @@
 - **Flutter**: For building a responsive and cross-platform mobile application.
 - **Repository Pattern**: For structured service calls.
 - **MVVM Architecture**: Separation of concerns for better maintainability.
+- **Shared Preference**: Theme persistance
 - **GoRouter**: For navigation and named route management.
 - **Provider**: For state management.
 - **HTTP Package**: For making API calls.
