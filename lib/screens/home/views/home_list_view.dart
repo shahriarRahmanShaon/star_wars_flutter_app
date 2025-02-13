@@ -94,7 +94,7 @@ class HomeListView extends StatelessWidget {
         itemCount: viewModel.count + (viewModel.isFetchingMore ? 1 : 0),
         itemBuilder: (context, index) {
           if (index == viewModel.count) {
-            return const Center(child: CircularProgressIndicator());
+            return SizedBox.shrink();
           }
           return CharacterCard(person: viewModel.getItem(index));
         },
