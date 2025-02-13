@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:star_wars_demo/base/views/base_view.dart';
+import 'package:star_wars_demo/data/constants/app_constants.dart';
 import 'package:star_wars_demo/screens/home/view_model/home_view_model.dart';
 import 'package:star_wars_demo/screens/home/widgets/character_card.dart';
 import 'package:star_wars_demo/screens/navigation/app_drawer.dart';
@@ -31,7 +32,7 @@ class HomeListView extends StatelessWidget {
         children: [
           Expanded(
             child: viewModel.errorMessage != null
-                ? Center(child: Text("${viewModel.errorMessage}"))
+                ? Center(child: Text(viewModel.errorMessage!))
                 : _buildCharacterGrid(viewModel),
           ),
         ],
@@ -48,8 +49,7 @@ class HomeListView extends StatelessWidget {
             child: TextField(
               controller: viewModel.textEditingController,
               decoration: InputDecoration(
-                hintText: "Search Characters...",
-                prefixIcon: const Icon(Icons.search),
+                hintText: AppConstants.searchHint,
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -77,7 +77,8 @@ class HomeListView extends StatelessWidget {
   Widget _buildCharacterGrid(HomeViewModel viewModel) {
     return NotificationListener<ScrollNotification>(
       onNotification: (scrollInfo) {
-        if (scrollInfo.metrics.pixels >= scrollInfo.metrics.maxScrollExtent - 200) {
+        if (scrollInfo.metrics.pixels >=
+            scrollInfo.metrics.maxScrollExtent - 200) {
           viewModel.fetchMoreCharacters();
         }
         return false;

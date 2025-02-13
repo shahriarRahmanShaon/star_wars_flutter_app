@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:star_wars_demo/base/view_models/base_view_model.dart';
+import 'package:star_wars_demo/data/constants/app_constants.dart';
 import 'package:star_wars_demo/data/repositories/character_repository.dart';
 import 'package:star_wars_demo/models/responses/character_card_response.dart';
 
@@ -8,12 +9,14 @@ class HomeViewModel extends BaseViewModel {
   final CharacterRepository _repository;
   Timer? _debounce;
 
-  HomeViewModel({required CharacterRepository repository}) : _repository = repository;
+  HomeViewModel({required CharacterRepository repository})
+      : _repository = repository;
 
   TextEditingController textEditingController = TextEditingController();
   List<Person> _characters = [];
   List<Person> _filteredCharacters = [];
   bool _isFetchingMore = false;
+
   bool get isFetchingMore => _isFetchingMore;
   String? _nextPageUrl;
   String? errorMessage;
@@ -32,7 +35,7 @@ class HomeViewModel extends BaseViewModel {
       _filteredCharacters = _characters;
       _nextPageUrl = data.next;
     } catch (e) {
-      errorMessage = "Error fetching characters: $e";
+      errorMessage = "${AppConstants.errorFetchingCharacters} $e";
       debugPrint(errorMessage);
     }
 
@@ -50,7 +53,7 @@ class HomeViewModel extends BaseViewModel {
       _filteredCharacters = _characters;
       _nextPageUrl = data.next;
     } catch (e) {
-      errorMessage = "Error fetching more characters: $e";
+      errorMessage = "${AppConstants.errorFetchingMoreCharacters} $e";
       debugPrint(errorMessage);
     }
 
@@ -71,5 +74,6 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Person getItem(int index) => _filteredCharacters[index];
+
   int get count => _filteredCharacters.length;
 }
