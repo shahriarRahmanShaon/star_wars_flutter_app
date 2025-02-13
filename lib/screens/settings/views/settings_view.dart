@@ -9,7 +9,11 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<SettingsViewModel>(
-      vmBuilder: (context) => SettingsViewModel(),
+      vmBuilder: (context) {
+        final vm = SettingsViewModel();
+        vm.initProvider(context);
+        return vm;
+      },
       builder: _buildScreen,
     );
   }
@@ -24,13 +28,13 @@ class SettingsView extends StatelessWidget {
             title: Text(AppConstants.darkModeLabel),
             secondary: const Icon(Icons.dark_mode),
             value: viewModel.darkMode,
-            onChanged: (value) => viewModel.toggleDarkMode(value),
+            onChanged: viewModel.toggleDarkMode,
           ),
           SwitchListTile(
             title: Text(AppConstants.notificationsLabel),
             secondary: const Icon(Icons.notifications),
             value: viewModel.notificationsEnabled,
-            onChanged: (value) => viewModel.toggleNotifications(value),
+            onChanged: viewModel.toggleNotifications,
           ),
           ListTile(
             leading: const Icon(Icons.lock),

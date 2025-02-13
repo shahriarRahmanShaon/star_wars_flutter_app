@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:star_wars_demo/base/theme/theme_provider.dart';
 import 'package:star_wars_demo/base/view_models/base_view_model.dart';
 
 class BaseView<T extends BaseViewModel> extends StatefulWidget {
@@ -23,19 +24,22 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkMode = themeProvider.themeMode == ThemeMode.dark;
+
     return ChangeNotifierProvider<T>.value(
       value: viewModel,
       child: Consumer<T>(
         builder: (context, viewModel, child) {
           if (!viewModel.isInitialized) {
-            return const Scaffold(
-              backgroundColor: Colors.white70,
-              body: Center(child: CircularProgressIndicator()),
+            return Scaffold(
+              backgroundColor: isDarkMode ? Colors.black87 : Colors.white70,
+              body: const Center(child: CircularProgressIndicator()),
             );
           }
 
           return Scaffold(
-            backgroundColor: Colors.white70,
+            backgroundColor: isDarkMode ? Colors.black87 : Colors.white70,
             body: Stack(
               children: [
                 widget.builder(context, viewModel),

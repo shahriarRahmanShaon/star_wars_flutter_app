@@ -130,6 +130,7 @@ class CharacterDetailView extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(
         elevation: 4,
+        color: Color(0xFFA9B5DF),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Padding(
           padding: const EdgeInsets.all(12),

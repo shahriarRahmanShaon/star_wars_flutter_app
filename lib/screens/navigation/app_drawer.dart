@@ -15,7 +15,7 @@ class AppDrawer extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             decoration: const BoxDecoration(
-              color: Color(0xFFE8F9FF),
+              color: Color(0xFFA9B5DF),
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
             accountName: Text(
